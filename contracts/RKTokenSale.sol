@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 import "./RKToken.sol";
 
 contract  RKTokenSale {
-    address admin ;
+    address payable  admin ;
     RKToken public tokenContract;
     uint256 public tokenPrice;
     uint256 public tokensSold;
@@ -15,10 +15,9 @@ contract  RKTokenSale {
     );
 
 
-    constructor(RKToken _tokenContract , uint256 _tokenPrice) public {
+    constructor (RKToken _tokenContract , uint256 _tokenPrice) public {
         // Assign the admin
-        admin = msg.sender ;
-
+        admin == msg.sender;
         //Token Contract
         tokenContract = _tokenContract ;
         //Token Price in eth
@@ -47,8 +46,8 @@ contract  RKTokenSale {
 
         // UPDATE: Let's not destroy the contract here
         // Just transfer the balance to the admin
-        //admin.transfer(address(this).balance);
-        selfdestruct(admin);
+        admin.transfer(address(this).balance);
+        //selfdestruct(admin);
 
     }
 }
